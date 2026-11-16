@@ -19,22 +19,33 @@ preliminary (see [`story.md`](story.md), [`results.md`](results.md)).
 
 ## 1. Create / push the public GitHub repository
 
-If the Agent already created and pushed the repo, skip to §2.
+**Local status (2026-11-16):** `git init` done; initial commit on `main`
+(`55486eb` — *Initial public release: preliminary CMN-JAX prototype v0.1.0*).
+`origin` already points at `https://github.com/kaneman777/CMN-JAX.git` but the
+remote repo did **not** exist yet when the Agent stopped (needs your GitHub login).
 
-```bash
-# from repo root
-git init
-git add -A
-git commit -m "Initial public release: preliminary CMN-JAX prototype v0.1.0"
+### A. Authenticate (one-time)
 
-# create PUBLIC repo under kaneman777 (requires gh)
-gh repo create kaneman777/CMN-JAX --public --source=. --remote=origin --push
-
-# or manually: create empty public repo on github.com, then
-# git remote add origin https://github.com/kaneman777/CMN-JAX.git
-# git branch -M main
-# git push -u origin main
+```powershell
+# portable gh was unpacked here if winget was busy:
+#   $env:LOCALAPPDATA\gh-cli\bin\gh.exe
+gh auth login --hostname github.com --git-protocol https --web
 ```
+
+Complete the device code in the browser as `kaneman777`.
+
+### B. Create public repo and push
+
+```powershell
+cd path\to\jax-neuro-pnp   # local folder
+gh repo create kaneman777/CMN-JAX --public --source=. --remote=origin --push
+# If origin already exists:
+#   gh repo create kaneman777/CMN-JAX --public
+#   git push -u origin main
+```
+
+**Website alternative:** https://github.com/new → name `CMN-JAX`, **Public**,
+no README/license (already in commit) → then `git push -u origin main`.
 
 Confirm: https://github.com/kaneman777/CMN-JAX is **public**.
 

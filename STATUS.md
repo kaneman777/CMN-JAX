@@ -179,7 +179,8 @@
 
 - **追加:** `LICENSE` (MIT, © 2026 Takuma Kaneko)、`NOTICE`、`CITATION.cff`、`docs/PUBLISHING.md`
 - **更新:** `README.md`（preliminary・非主張・Quick links）、`.gitignore`（`figures/*.png` を追跡）、`pyproject.toml`（0.1.0 / MIT / author）
-- **GitHub:** 公開 repo 名 **CMN-JAX**（`kaneman777`）。DOI は Zenodo 連携待ち（手順は PUBLISHING.md）
+- **Git:** `git init` + 初回 commit `55486eb`（`main`）。remote `origin` → `https://github.com/kaneman777/CMN-JAX.git`（未作成のため push 待ち）
+- **GitHub / Release / Zenodo:** Agent 側で `gh auth` 未完了のため **ユーザー操作残り**（[`docs/PUBLISHING.md`](docs/PUBLISHING.md) §1–3）。DOI **未取得**
 - **言わない:** 新分野創始自慢・脳再現・Adam 代替
 
 ---
