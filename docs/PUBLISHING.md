@@ -1,0 +1,106 @@
+# Publishing checklist (GitHub + Zenodo)
+
+- **Created:** 2026-11-16
+- **Repo (intended):** https://github.com/kaneman777/CMN-JAX
+- **Release target:** `v0.1.0` — Preliminary prototype (story/results freeze)
+
+This document is the operational guide for a **public timestamp**. Claims stay
+preliminary (see [`story.md`](story.md), [`results.md`](results.md)).
+
+---
+
+## 0. Preconditions
+
+- [ ] Local tree commits cleanly (`LICENSE`, `README`, `CITATION.cff`, docs, code, tracked figures)
+- [ ] GitHub account: `kaneman777`
+- [ ] `gh` CLI authenticated (`gh auth login`) **or** use the GitHub website UI
+
+---
+
+## 1. Create / push the public GitHub repository
+
+If the Agent already created and pushed the repo, skip to §2.
+
+```bash
+# from repo root
+git init
+git add -A
+git commit -m "Initial public release: preliminary CMN-JAX prototype v0.1.0"
+
+# create PUBLIC repo under kaneman777 (requires gh)
+gh repo create kaneman777/CMN-JAX --public --source=. --remote=origin --push
+
+# or manually: create empty public repo on github.com, then
+# git remote add origin https://github.com/kaneman777/CMN-JAX.git
+# git branch -M main
+# git push -u origin main
+```
+
+Confirm: https://github.com/kaneman777/CMN-JAX is **public**.
+
+---
+
+## 2. Cut GitHub Release `v0.1.0`
+
+```bash
+gh release create v0.1.0 --title "Preliminary prototype — story/results freeze" --notes-file - <<'EOF'
+Preliminary independent undergraduate research prototype.
+
+- Differentiable toy neuron with ATP + ion constraints (JAX)
+- Verified toy-level map: RQ1–3 previews, two-cell synapse (train) / K_e diffusion (bus), task-dependent scoring (C′/C′′/C′′′)
+- **Not claiming:** biological reproduction, field creation, Adam replacement
+
+Primary docs:
+- Story: docs/story.md
+- Results: docs/results.md
+- Survey: docs/survey.md
+- Vision (wishlist only): docs/vision.md
+
+Independent solo-started prototype; not a formal university lab project (see NOTICE).
+EOF
+```
+
+Or: GitHub → Releases → Draft a new release → tag `v0.1.0`.
+
+---
+
+## 3. Zenodo DOI via GitHub (recommended)
+
+Official docs:
+
+- Zenodo–GitHub: https://docs.zenodo.org/docs/github/
+- General upload: https://docs.zenodo.org/
+
+### Shortest path
+
+1. Sign in to [Zenodo](https://zenodo.org/) (or Sandbox first: https://sandbox.zenodo.org/).
+2. GitHub icon → authorize Zenodo’s GitHub App for account `kaneman777`.
+3. Enable the repository **CMN-JAX** in Zenodo’s GitHub listing.
+4. On GitHub, (re)publish Release `v0.1.0` (or create a new patch release if needed). Zenodo archives the release and mints a DOI.
+5. Copy the **Concept DOI** (version-agnostic) and/or **Version DOI** (`10.5281/zenodo.…`).
+
+### After DOI exists — update this repo
+
+- [ ] `README.md`: replace `TODO after Zenodo` badge / citation DOI
+- [ ] `CITATION.cff`: uncomment `identifiers` and set the DOI
+- [ ] `STATUS.md`: mark DOI obtained + date
+- [ ] Commit + push (optional small release `v0.1.1` only if needed for Zenodo sync)
+
+---
+
+## 4. Next phase (optional, not required for timestamp)
+
+1. Short **Tech Report** (2–6 pages) summarizing story + key tables from results.
+2. Optional preprint: arXiv / TechRxiv (check license + institutional requirements).
+3. Keep vision.md out of the abstract’s claims.
+
+---
+
+## Troubleshooting
+
+| Issue | Action |
+|-------|--------|
+| `gh` missing | Install [GitHub CLI](https://cli.github.com/) or use the website UI |
+| Auth failed | `gh auth login` |
+| Zenodo did not archive | Ensure repo is public, Zenodo toggle ON, then make a **new** release |
+| Large files | Keep `.venv/`, PDFs, `outputs/` gitignored; figures PNGs are intentionally tracked |

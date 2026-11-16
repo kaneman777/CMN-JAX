@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# JAX / XLA caches
+.jax_cache/
+
+# Local paper PDFs (optional local cache; do not commit copyrighted PDFs)
+refs/pdfs/
+*.pdf
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Experiment outputs (keep representative figures tracked for public timestamp)
+outputs/
+runs/
+wandb/
+*.png
+!figures/*.png
+!docs/**/*.png

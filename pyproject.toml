@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jnpnp"
+version = "0.1.0"
+description = "CMN-JAX: Differentiable toy neurons with ATP and ion constraints (preliminary JAX prototype)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Takuma Kaneko" }]
+dependencies = [
+  "jax>=0.4.30",
+  "jaxlib>=0.4.30",
+  "diffrax>=0.6.0",
+  "equinox>=0.11.0",
+  "optax>=0.2.0",
+  "numpy>=1.26",
+  "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "ipython>=8.0",
+  "jupyter>=1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below (DOI TBA after Zenodo)."
+title: "CMN-JAX: Differentiable toy neurons with ATP and ion constraints"
+authors:
+  - family-names: Kaneko
+    given-names: Takuma
+version: "0.1.0"
+date-released: "2026-11-16"
+license: MIT
+repository-code: "https://github.com/kaneman777/CMN-JAX"
+url: "https://github.com/kaneman777/CMN-JAX"
+type: software
+abstract: >-
+  Preliminary independent research prototype: JAX point neurons with Na/K pump,
+  ATP state, optional local K_e diffusion, and synaptic coupling. Documents
+  toy-level previews for selective coding, slow traces, supply stress, and
+  task-dependent scoring of synaptic vs K_e pathways. Not a claim of biological
+  reproduction, field creation, or Adam replacement.
+keywords:
+  - JAX
+  - biophysical neuron
+  - ATP
+  - ion homeostasis
+  - differentiable simulation
+# identifiers:
+#   - type: doi
+#     value: "10.5281/zenodo.TODO"
