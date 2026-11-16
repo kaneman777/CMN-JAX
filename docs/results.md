@@ -1,7 +1,7 @@
 # Results Summary（検証済み到達点）
 
 - **作成日:** 2026-11-15
-- **最終更新:** 2026-11-16（C′′′ Ask クローズ）
+- **最終更新:** 2026-11-17（C′′′ asym Ask 部分成功クローズ）
 
 > **予兆レベルのトイ結果。創発・脳再現・Adam代替の証明ではない。**  
 > **物語版:** [`story.md`](story.md)　願望カタログは [`vision.md`](vision.md)。実験日誌の一次ソースは [`STATUS.md`](../STATUS.md)。
@@ -39,6 +39,7 @@
 | C′ | syn+\(K_e\) 共存 | `15_cprime_syn_plus_ke.py` · [`figures/cprime_syn_plus_ke.png`](../figures/cprime_syn_plus_ke.png) | **拡散支配の共存:** both≈diff | cue→probe では電車サイン弱；バスは \(w\neq0\) でも残る |
 | C′′ | 同時駆動で再採点 | `16_cdoubleprime_co_drive.py` · [`figures/cdoubleprime_co_drive.png`](../figures/cdoubleprime_co_drive.png) | **部分成功:** syn≠neither・both≈syn | 長駆動で Ke クリップしバス弱；C′と対で課題依存 |
 | C′′′ | 短駆動同時採点 | `17_ctripleprime_short_codrive.py` · [`figures/ctripleprime_short_codrive.png`](../figures/ctripleprime_short_codrive.png) | **電車のみ:** syn ratio→1.13・Ke未clip | 対称駆動では diff≈neither（Dに勾配なし） |
+| C′′′ asym | 非対称短同時 | `18_casym_short_codrive.py` · [`figures/casym_short_codrive.png`](../figures/casym_short_codrive.png) | **部分成功:** eps=0 bus null 回帰；eps=0.20 未clip・train+bus（bus_ke ぎりぎり・both≈syn） | フル二回線同時採点ではない；最適ハイブリッド等は主張しない |
 
 **B1 Ask（2026-11-16）:** ①成功。結合オンで非対称＋高発火側 Δa 大；オフは対称。成功は構造非対称抑制依存（対称結合からの自発破れは未達）。詳細は STATUS「Ask 検証 — Phase B1 クローズ」。
 
@@ -52,15 +53,16 @@
 
 **B2 \(K_e\) 拡散（2026-11-16）— 成功:** シナプス \(w=0\)・2点拡散。H0 \(D=0\): delay 中 Ke2≈4.56。H1 \(D=0.005\): Ke2@probe=6.42、mean s2 probe 0.032→0.089；Ke1_max もやや低下（隣へ逃げるサイン）。**地図:** B1=速いシナプス電流（電車）、B2=遅い共有 \(K_e\) 場（バス）— 両方の最小デモが揃った。脳波・組織拡散忠実再現・1D連続体そのものは主張しない（\(D,\tau\) 依存の1点・2点近似）。
 
-**C′ / C′′ / C′′′（三代対比）:**
+**C′ / C′′ / C′′′ / C′′′ asym（四代対比）:**
 
 | | 主役 | 核 |
 |--|------|----|
 | C′ cue→probe | **バス** | 活動非対称→Ke勾配 |
 | C′′ 長同時 | **電車**（バスはclip） | 同時押し引き；Ke飽和 |
 | C′′′ 短同時 | **電車のみ** | clip解消；**対称駆動ではバス null** |
+| C′′′ asym | **電車＋薄いバス** | 非対称でバスの口は開く；both≈syn |
 
-幹線はシナプス電流が基本。バス支配はよほどな状況（非対称活動・遅い窓＝C′寄り）。「短くすれば両方見える」は対称駆動のままでは成り立たない。最適ハイブリッド証明は主張しない。
+幹線はシナプス電流が基本。バス支配はよほどな状況（非対称活動・遅い窓＝C′寄り）。短同時の非対称はバス用 Ke 差を立てうるが、採点は電車支配のまま（部分成功）。最適ハイブリッド証明は主張しない。
 
 **A1 Ask（2026-11-15）:** 合格＝欠点修正。w1 飽和は緩和、選択は維持；節約は未解決。純局所主張は不可。詳細は STATUS「Ask 検証 — Phase 4-Learn A1 クローズ」。
 

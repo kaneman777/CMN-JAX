@@ -19,12 +19,12 @@
 ## 現在のスナップショット
 
 - **最終更新:** 2026-11-17
-- **フェーズ:** 物理・数値健全性の薄い回帰テスト追加（公開 P0 の上）
+- **フェーズ:** C′′′ asym — **部分成功クローズ**（地図前進；フル二回線同時採点ではない）
 - **メモ:** Concept DOI `10.5281/zenodo.24283139` · Version DOI `10.5281/zenodo.24283140` · repo https://github.com/kaneman777/CMN-JAX。到達点は [`docs/story.md`](docs/story.md)
 - **次のアクション候補（決め打ちしない。併記）:**
-  1. 非対称コドライブ（テストが守る範囲内での実験）
-  2. （任意）短い Tech Report
-  3. 休 / 肩代わり・3細胞
+  1. （任意）短い Tech Report
+  2. 休 / 肩代わり・3細胞
+  3. B1-③ リズムは急がない
 
 ---
 
@@ -157,6 +157,11 @@
 - [x] `scripts/17_ctripleprime_short_codrive.py` + `figures/ctripleprime_short_codrive.png`（2026-11-16）
 - [x] Ask 検証（電車のみ・三代対比を正式記録）（2026-11-16）
 
+#### Phase C′′′ asym — 非対称短同時 — **完了（部分成功）**
+
+- [x] `scripts/18_casym_short_codrive.py` + `figures/casym_short_codrive.png`（2026-11-17）
+- [x] Ask 検証（部分成功を正式記録）（2026-11-17）
+
 #### 公開準備 P0 — **完了（DOI 取得済み）**
 
 - [x] LICENSE (MIT) · NOTICE · CITATION.cff · docs/PUBLISHING.md · README 公開向け再構成（2026-11-16）
@@ -168,13 +173,91 @@
 ### Future（未着手・短記）
 
 - [ ] （任意）短い Tech Report
-- [ ] 任意: わずかに非対称な同時駆動で二回線同時採点
+- [x] 任意: わずかに非対称な同時駆動で二回線同時採点（2026-11-17 **部分成功**クローズ）
 - [ ] 肩代わり＋可塑性 / 3細胞
 - [ ] B1-③ リズムは急がない；vision Later は触らない
 
 ---
 
 ## 日誌（新しい日付を上に追加）
+
+### 2026-11-17（Ask 検証 — Phase C′′′ asym 部分成功クローズ）
+
+実装追加・再実験なし。非対称短同時を **部分成功**（地図は前進。フル成功＝短窓で二回線がはっきり同時採点、ではない）として正式記録する。
+
+#### 実験セットアップ
+
+- **スクリプト:** `scripts/18_casym_short_codrive.py`
+- **図:** `figures/casym_short_codrive.png`
+- 窓: 150 ms（\(t=20\)–\(170\)）, \(w=(-15,-3)\), \(D=0.005\), \(I_1=9\), \(I_2=I(1-\varepsilon)\)
+- 条件: neither / syn / diff / both（17 と同型）
+
+#### 代表数値（width=150）
+
+| eps | train_ok | bus_ok | clip | both_mixed | bus_ke | メモ |
+|-----|:--------:|:------:|:----:|:----------:|-------:|------|
+| **0.00** | True | **False** | False | True | 0.000 | C′′′ 対称バス null 回帰 OK |
+| **0.20** | True | True | False | **False** | 0.307 | 最小 dual-ok；閾値ぎりぎり；both≈syn |
+| 0.30 | True | True | False | True | 5.499 | bus 強いが cell2 ほぼ沈黙 |
+
+#### Ask 検証メモ
+
+- **判定:** **部分成功**（地図は前進。失敗ではない。フル二回線同時採点ではない）
+- **言えること:**
+  - 短同時でも活動非対称ならバス用 \(K_e\) 差は立ちうる
+  - 対称短同時のバス null は C′′′ 解釈（勾配ゼロ）と整合
+  - 未 clip のまま電車サインも残せる（閾値上；eps=0.20）
+- **四代対比（必ず残す）:**
+
+| | 主役 | 核 |
+|--|------|----|
+| C′ cue→probe | バス | 活動非対称→Ke勾配 |
+| C′′ 長同時 | 電車（バスはclip） | 同時押し引き；Ke飽和 |
+| C′′′ 短同時 | 電車のみ | clip解消；対称でバス不可視 |
+| C′′′ asym | 電車＋薄いバス | 非対称でバスの口は開く；both≈syn |
+
+- **言えないこと:** 最適ハイブリッド／常に二回線同時採点；both で電車とバスが同程度；eps=0.20 が特別な生理値
+
+---
+
+### 2026-11-17（Phase C′′′ asym — 非対称短同時・実施記録）
+
+実施ログ。Ask 判定は直上の「Ask 検証 — Phase C′′′ asym 部分成功クローズ」。
+
+**やったこと**
+
+- `scripts/18_casym_short_codrive.py`: C′′′（17）をベースに、共有短窓で \(I_2 = I(1-\varepsilon)\)。条件 neither/syn/diff/both と `score_window` を踏襲。
+- 既定: \(w=(-15,-3)\), \(D=0.005\), width=150 ms, \(I=9\), \(\tau_{\mathrm{syn}}=8\), V0 微差維持。
+- eps スイープ \((0, 0.05, 0.10, 0.15, 0.20, 0.30)\)。選び方: **未クリップ・train_ok・bus_ok を満たす最小 eps**。
+- 図: `figures/casym_short_codrive.png`（選ばれた eps\*）。README Quickstart 1 行・results / story は Ask クローズで更新。
+
+**数値（width=150）**
+
+| eps | train_ok | bus_ok | clip | both_mixed | Q | bus_ke | メモ |
+|-----|----------|--------|------|------------|---|--------|------|
+| **0.00** | True | **False** | False | True | 3 | 0.000 | C′′′ 回帰（バス null） |
+| 0.05 | True | False | False | True | 3 | 0.044 | 勾配ごく小 |
+| 0.10 | True | False | False | False | 2 | 0.095 | |
+| 0.15 | True | False | False | False | 2 | 0.153 | |
+| **0.20** | True | **True** | False | **False** | 4 | 0.307 | **スクリプト選定**（最小 dual-ok） |
+| 0.30 | True | True | False | True | 5 | 5.499 | 強非対称；cell2 ほぼ沈黙 |
+
+**対照・選定**
+
+- eps=0 @150 ms: train_ok=True, bus_ok=False, clip=False（対称短同時のバス null を再現）。
+- 選定: **eps=0.20, width=150** — 未clip・train_ok・bus_ok の最小 eps。both≈syn（both_mixed=False）。bus_ke=0.307 は閾値 0.25 をわずかに超える程度。
+- fallback width スイープは primary で dual-ok が出たため未実行。
+
+**自己判定メモ（Ask クローズ前）**
+
+- 成功 / 部分成功 / null 候補を併記していた。Ask 確定は **部分成功**（直上クローズ）。
+
+**言えないこと / 限界**
+
+- 最適ハイブリッド通信・脳の二回線・常に両方見える、の証明ではない。
+- フル閉鎖 PNP ではない（注入電流・clip・2点拡散）。
+
+---
 
 ### 2026-11-17（物理・数値健全性の薄い回帰テスト）
 

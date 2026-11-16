@@ -1,7 +1,7 @@
 # 研究ストーリー（到達点の言語化）
 
 - **作成日:** 2026-11-16
-- **最終更新:** 2026-11-16（C′′′ Ask クローズ反映）
+- **最終更新:** 2026-11-17（C′′′ asym 部分成功クローズ）
 
 > これは検証済みトイ結果の物語要約である。創発・脳再現・Adam代替の証明ではない。一次データは STATUS / results。
 
@@ -49,21 +49,22 @@ Phase 4-Bio では簡約 K_ATP でも同様の予兆。4-Learn では純局所�
 
 ### 結 — 課題が回線の点数を決める
 
-同じトイに電車とバスを同時搭載し、採点だけ変えた。三代の対比:
+同じトイに電車とバスを同時搭載し、採点だけ変えた。四代の対比:
 
 | | 主役 | 核 |
 |--|------|----|
 | C′ cue→probe | **バス** | 活動非対称→Ke勾配 |
 | C′′ 長同時 | **電車**（バスはclip） | 同時押し引き；Ke飽和 |
 | C′′′ 短同時 | **電車のみ** | clip解消；**対称駆動ではバス null** |
+| C′′′ asym | **電車＋薄いバス** | 非対称でバスの口は開く；both≈syn |
 
-短同時（主窓 150 ms）では Ke 未クリップで電車は見える（ratio≈1.13、both≈syn）が、対称駆動では両細胞の \(K_e\) が揃い \(D\) に勾配が立たない。「短くすれば両方見える」は対称駆動のままでは成り立たない。
+短同時（主窓 150 ms）では Ke 未クリップで電車は見える（ratio≈1.13、both≈syn）が、対称駆動では両細胞の \(K_e\) が揃い \(D\) に勾配が立たない。「短くすれば両方見える」は対称駆動のままでは成り立たない。わずかに振幅を非対称にするとバス用の \(K_e\) 差は立ち、未 clip のまま電車サインも残る（部分成功）が、バスは薄く both≈syn のままで、短窓で二回線がはっきり同時採点とは言えない。
 
 **直観との整合:** 幹線の伝達はシナプス電流が基本。拡散が支配的なのはよほどな状況（非対称活動・遅い窓など）。C′が例外寄り、C′′′が普段寄り、と読める。
 
 教訓: **両方載せられる。どれが点数に載るかは課題と時間スケール次第。** 最適ハイブリッド運用の証明ではない。
 
-**代表図:** [`figures/cprime_syn_plus_ke.png`](../figures/cprime_syn_plus_ke.png) · [`figures/cdoubleprime_co_drive.png`](../figures/cdoubleprime_co_drive.png) · [`figures/ctripleprime_short_codrive.png`](../figures/ctripleprime_short_codrive.png)
+**代表図:** [`figures/cprime_syn_plus_ke.png`](../figures/cprime_syn_plus_ke.png) · [`figures/cdoubleprime_co_drive.png`](../figures/cdoubleprime_co_drive.png) · [`figures/ctripleprime_short_codrive.png`](../figures/ctripleprime_short_codrive.png) · [`figures/casym_short_codrive.png`](../figures/casym_short_codrive.png)
 
 ---
 
@@ -95,7 +96,7 @@ Phase 4-Bio では簡約 K_ATP でも同様の予兆。4-Learn では純局所�
 決め打ちしない。併記のみ。
 
 - **肩代わり:** 可塑性・タスク共有など追加部品（②′で減速までは見えた）
-- **わずかに非対称な同時駆動**で二回線同時採点（任意）
+- **わずかに非対称な同時駆動** — **部分成功クローズ済**（`18_casym_short_codrive.py`；バス薄い／両方はっきりは未達）
 - **肩代わり＋可塑性**
 - **3細胞・リズム**など地図の次のマス
 - 願望カタログは別棚: [`vision.md`](vision.md)
@@ -136,5 +137,6 @@ Phase 4-Bio では簡約 K_ATP でも同様の予兆。4-Learn では純局所�
 | [`figures/cprime_syn_plus_ke.png`](../figures/cprime_syn_plus_ke.png) | C′ バス支配 |
 | [`figures/cdoubleprime_co_drive.png`](../figures/cdoubleprime_co_drive.png) | C′′ 電車が載る（Ke clip） |
 | [`figures/ctripleprime_short_codrive.png`](../figures/ctripleprime_short_codrive.png) | C′′′ 短駆動・電車のみ |
+| [`figures/casym_short_codrive.png`](../figures/casym_short_codrive.png) | C′′′ asym 部分成功（電車＋薄いバス） |
 
 数値・表の根拠はすべて [`results.md`](results.md) と [`STATUS.md`](../STATUS.md) を参照。

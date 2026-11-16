@@ -84,6 +84,7 @@ python scripts/14_b2_ke_diffusion.py         # B2 K_e diffusion
 python scripts/15_cprime_syn_plus_ke.py      # C′ syn+Ke (cue→probe)
 python scripts/16_cdoubleprime_co_drive.py   # C′′ co-drive
 python scripts/17_ctripleprime_short_codrive.py  # C′′′ short co-drive
+python scripts/18_casym_short_codrive.py         # C′′′ asym short co-drive
 ```
 
 Figures are written under `figures/` (tracked PNGs for the public timestamp).
