@@ -18,12 +18,13 @@
 
 ## 現在のスナップショット
 
-- **最終更新:** 2026-11-16
-- **フェーズ:** 公開準備 P0 — **DOI 取得済み**（Release v0.1.1）
+- **最終更新:** 2026-11-17
+- **フェーズ:** 物理・数値健全性の薄い回帰テスト追加（公開 P0 の上）
 - **メモ:** Concept DOI `10.5281/zenodo.24283139` · Version DOI `10.5281/zenodo.24283140` · repo https://github.com/kaneman777/CMN-JAX。到達点は [`docs/story.md`](docs/story.md)
 - **次のアクション候補（決め打ちしない。併記）:**
-  1. （任意）短い Tech Report
-  2. 休 / 研究続き（非対称コドライブ・肩代わり・3細胞）
+  1. 非対称コドライブ（テストが守る範囲内での実験）
+  2. （任意）短い Tech Report
+  3. 休 / 肩代わり・3細胞
 
 ---
 
@@ -46,7 +47,7 @@
 - [x] Na/K-ATPase + ATP 状態変数（2026-11-15）
 - [x] `scripts/00_forward_smoke.py`（スパイク → Na 蓄積 → ATP 低下 → 抑制）（2026-11-15）
 - [x] Ask 側による定性検証（2026-11-15）— 詳細は下記日誌
-- [ ] イオン／電荷収支の簡易テスト（Phase 1 コア外・後回し可）
+- [~] イオン／電荷収支の簡易テスト（2026-11-17: Nernst / grad / positivity / passivity / 狭い stoichiometry・Ke 拡散ゼロ和。**閉鎖 PNP 全電荷保存は未実装・対象外**）
 
 ### Phase 2 — 微分可能学習 — **完了（2a / 2b / 2c）**
 
@@ -174,6 +175,30 @@
 ---
 
 ## 日誌（新しい日付を上に追加）
+
+### 2026-11-17（物理・数値健全性の薄い回帰テスト）
+
+**やったこと**
+
+- `tests/test_nernst.py`: \(E_K/E_{Na}\) 符号・等濃度ゼロ、外向き正の \(I_K/I_{Na}\) 方向。
+- `tests/test_differentiability.py`: 短軌跡 `simulate_driven` 経由 `jax.grad(stim_gain)` が有限・非ゼロ；RHS レベルで `a_max` 勾配。
+- `tests/test_positivity.py`: 強刺激短〜中で Na/a/Ke が clip 下限以上・有限；`da_dt` 生成項の符号。
+- `tests/test_passivity.py`: 無刺激で有限；`fix_a` + 極小 `a_max` で自発連発なし（V→0 mV は要求しない）。
+- `tests/test_conservation.py`: スタブ置換。ポンプ化学量論（Na×3 / Ke×2）と等体積 Ke 拡散ゼロ和（ユニット）。**厳密全電荷保存はしない**。
+
+**結果**
+
+- `pytest tests/ -q` → **16 passed**（意図的 skip なし）。
+
+**既知の限界**
+
+- 本モデルはフル閉鎖 PNP ではない（\(I_{\mathrm{ext}}\) 注入・体積近似・`clip_Na` / `clip_a` / `clip_Ke`）。テストは符号ミス・負濃度・永久機関・勾配切れの早期検知用で、物理完全性の証明ではない。
+
+**次**
+
+- 非対称コドライブ等の新実験へ進んでよい（上記ガードの範囲内）。モデル式の大規模修正はしない。
+
+---
 
 ### 2026-11-16（公開準備 P0 — Zenodo DOI 反映）
 
