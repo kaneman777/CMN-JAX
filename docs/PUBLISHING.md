@@ -1,11 +1,16 @@
 # Publishing checklist (GitHub + Zenodo)
 
 - **Created:** 2026-11-16
-- **Repo (intended):** https://github.com/kaneman777/CMN-JAX
-- **Release target:** `v0.1.0` — Preliminary prototype (story/results freeze)
+- **Repo:** https://github.com/kaneman777/CMN-JAX
+- **DOI status:** **obtained** (2026-11-16)
+  - Concept DOI: https://doi.org/10.5281/zenodo.24283139
+  - Version DOI (v0.1.1): https://doi.org/10.5281/zenodo.24283140
+  - Zenodo record: https://zenodo.org/records/24283140
+  - Badge / citation live in `README.md` and `CITATION.cff`
 
-This document is the operational guide for a **public timestamp**. Claims stay
+This document remains the operational guide for a **public timestamp**. Claims stay
 preliminary (see [`story.md`](story.md), [`results.md`](results.md)).
+Steps below are kept for reproducibility / future version releases.
 
 ---
 

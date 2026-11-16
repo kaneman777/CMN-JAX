@@ -1,7 +1,7 @@
 # CMN-JAX
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![DOI](https://img.shields.io/badge/DOI-TODO_after_Zenodo-lightgrey)](docs/PUBLISHING.md)
+[![DOI](https://zenodo.org/badge/1459970106.svg)](https://doi.org/10.5281/zenodo.24283139)
 [![Status](https://img.shields.io/badge/status-preliminary-orange)](docs/story.md)
 
 **One-liner:** Differentiable toy neuron models with ATP and ion constraints (JAX).
@@ -106,18 +106,18 @@ CMN-JAX/
 
 ## Citation
 
-DOI: **TODO after Zenodo** (follow [`docs/PUBLISHING.md`](docs/PUBLISHING.md)).
-
-Until a DOI exists, you may cite the software release:
+**Concept DOI:** [10.5281/zenodo.24283139](https://doi.org/10.5281/zenodo.24283139)  
+**Version DOI (v0.1.1):** [10.5281/zenodo.24283140](https://doi.org/10.5281/zenodo.24283140) · [Zenodo record](https://zenodo.org/records/24283140)
 
 ```bibtex
 @software{kaneko_cmnjax_2026,
   author       = {Kaneko, Takuma},
   title        = {{CMN-JAX}: Differentiable toy neurons with ATP and ion constraints},
   year         = {2026},
-  version      = {0.1.0},
+  version      = {0.1.1},
+  doi          = {10.5281/zenodo.24283139},
   url          = {https://github.com/kaneman777/CMN-JAX},
-  note         = {Preliminary independent research prototype; DOI pending Zenodo}
+  note         = {Preliminary independent research prototype}
 }
 ```
 

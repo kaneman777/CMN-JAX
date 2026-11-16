@@ -1,10 +1,10 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it using the metadata below (DOI TBA after Zenodo)."
+message: "If you use this software, please cite it using the metadata below."
 title: "CMN-JAX: Differentiable toy neurons with ATP and ion constraints"
 authors:
   - family-names: Kaneko
     given-names: Takuma
-version: "0.1.0"
+version: "0.1.1"
 date-released: "2026-11-16"
 license: MIT
 repository-code: "https://github.com/kaneman777/CMN-JAX"
@@ -22,6 +22,6 @@ keywords:
   - ATP
   - ion homeostasis
   - differentiable simulation
-# identifiers:
-#   - type: doi
-#     value: "10.5281/zenodo.TODO"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24283139"

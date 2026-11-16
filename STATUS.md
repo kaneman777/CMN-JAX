@@ -19,12 +19,11 @@
 ## 現在のスナップショット
 
 - **最終更新:** 2026-11-16
-- **フェーズ:** 公開準備 P0（文書 + public repo）— **DOI は Zenodo 取得待ち**
-- **メモ:** LICENSE MIT / README・CITATION・PUBLISHING 整備。到達点は [`docs/story.md`](docs/story.md)。DOI 手順は [`docs/PUBLISHING.md`](docs/PUBLISHING.md)
+- **フェーズ:** 公開準備 P0 — **DOI 取得済み**（Release v0.1.1）
+- **メモ:** Concept DOI `10.5281/zenodo.24283139` · Version DOI `10.5281/zenodo.24283140` · repo https://github.com/kaneman777/CMN-JAX。到達点は [`docs/story.md`](docs/story.md)
 - **次のアクション候補（決め打ちしない。併記）:**
-  1. Zenodo DOI（Release 連携）→ README / CITATION 更新
-  2. （任意）短い Tech Report
-  3. 休 / 研究続き（非対称コドライブ・肩代わり・3細胞）
+  1. （任意）短い Tech Report
+  2. 休 / 研究続き（非対称コドライブ・肩代わり・3細胞）
 
 ---
 
@@ -157,14 +156,17 @@
 - [x] `scripts/17_ctripleprime_short_codrive.py` + `figures/ctripleprime_short_codrive.png`（2026-11-16）
 - [x] Ask 検証（電車のみ・三代対比を正式記録）（2026-11-16）
 
-#### 公開準備 P0 — **進行 / DOI 待ち**
+#### 公開準備 P0 — **完了（DOI 取得済み）**
 
 - [x] LICENSE (MIT) · NOTICE · CITATION.cff · docs/PUBLISHING.md · README 公開向け再構成（2026-11-16）
-- [ ] Zenodo DOI 取得後に README / CITATION / STATUS 更新
+- [x] Zenodo DOI を README / CITATION / STATUS に反映（2026-11-16）
+  - Concept: `10.5281/zenodo.24283139`
+  - Version (v0.1.1): `10.5281/zenodo.24283140`
+  - Record: https://zenodo.org/records/24283140
 
 ### Future（未着手・短記）
 
-- [ ] Zenodo DOI →（任意）Tech Report
+- [ ] （任意）短い Tech Report
 - [ ] 任意: わずかに非対称な同時駆動で二回線同時採点
 - [ ] 肩代わり＋可塑性 / 3細胞
 - [ ] B1-③ リズムは急がない；vision Later は触らない
@@ -173,14 +175,24 @@
 
 ## 日誌（新しい日付を上に追加）
 
+### 2026-11-16（公開準備 P0 — Zenodo DOI 反映）
+
+新実験なし。取得済み DOI を文書に書き込み。
+
+- Concept DOI: `10.5281/zenodo.24283139`（README バッジ）
+- Version DOI (v0.1.1): `10.5281/zenodo.24283140`
+- 更新: `README.md` · `CITATION.cff` · `STATUS.md` · `docs/PUBLISHING.md`
+- GitHub: https://github.com/kaneman777/CMN-JAX
+
+---
+
 ### 2026-11-16（公開準備 P0 — README / LICENSE / 公開 repo）
 
 新実験なし。創始タイムスタンプ用に公開できる状態へ整備。
 
 - **追加:** `LICENSE` (MIT, © 2026 Takuma Kaneko)、`NOTICE`、`CITATION.cff`、`docs/PUBLISHING.md`
 - **更新:** `README.md`（preliminary・非主張・Quick links）、`.gitignore`（`figures/*.png` を追跡）、`pyproject.toml`（0.1.0 / MIT / author）
-- **Git:** `git init` + 初回 commit `55486eb`（`main`）。remote `origin` → `https://github.com/kaneman777/CMN-JAX.git`（未作成のため push 待ち）
-- **GitHub / Release / Zenodo:** Agent 側で `gh auth` 未完了のため **ユーザー操作残り**（[`docs/PUBLISHING.md`](docs/PUBLISHING.md) §1–3）。DOI **未取得**
+- **Git / GitHub:** public repo **CMN-JAX**（`kaneman777`）。DOI は後続日誌で取得済みに更新。
 - **言わない:** 新分野創始自慢・脳再現・Adam 代替
 
 ---
