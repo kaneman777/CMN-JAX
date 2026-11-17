@@ -96,6 +96,9 @@ def simulate_two_cell(
     V_th: float = 0.0,
     k_soft: float = 0.5,
     tau_syn: float = 5.0,
+    plastic_B: bool = False,
+    plastic_alpha: float = 0.0,
+    plastic_a_ref: float = 1.0,
 ) -> dict[str, Any]:
     """Integrate two weakly coupled point cells.
 
@@ -113,6 +116,15 @@ def simulate_two_cell(
     a_max_1, a_max_2 :
         Per-cell ATP ceiling (Phase B1-② supply stress). Defaults to
         ``params["a_max"]``. Initial ``a0_*`` defaults to the cell's a_max.
+    plastic_B :
+        Plan-B minimal plasticity (not plan A): weaken |w21| when cell1 is
+        ATP-poor. ``w21_eff = w21 * (1 - α u1)`` with
+        ``u1 = clip(1 - a1 / plastic_a_ref, 0, 1)``. ``w12`` stays fixed.
+    plastic_alpha :
+        Strength α ∈ [0, 1]. Ignored unless ``plastic_B``.
+    plastic_a_ref :
+        Healthy ATP reference for u1 (default 1). Using ``a_max1`` as the
+        denominator keeps u1≈0 when a tracks a lowered ceiling.
     """
     if params is None:
         params = merge_params()
@@ -149,6 +161,15 @@ def simulate_two_cell(
     V_th_j = jnp.asarray(V_th, dtype=jnp.float64)
     k_soft_j = jnp.asarray(k_soft, dtype=jnp.float64)
     tau_j = jnp.asarray(max(tau_syn, 1e-6), dtype=jnp.float64)
+    plastic_B_j = jnp.asarray(plastic_B)
+    alpha_j = jnp.asarray(float(plastic_alpha), dtype=jnp.float64)
+    a_ref_j = jnp.asarray(max(float(plastic_a_ref), 1e-9), dtype=jnp.float64)
+
+    def w21_effective(a1: Any) -> Any:
+        a_eff = jnp.where(fix_a_j, a_max1, a1)
+        u1 = jnp.clip(1.0 - a_eff / a_ref_j, 0.0, 1.0)
+        scale = jnp.where(plastic_B_j, 1.0 - alpha_j * u1, 1.0)
+        return w21_j * scale
 
     def step(y, inputs):
         _t, I_drive = inputs
@@ -158,8 +179,9 @@ def simulate_two_cell(
 
         s1 = 1.0 / (1.0 + jnp.exp(-k_soft_j * (y1[0] - V_th_j)))
         s2 = 1.0 / (1.0 + jnp.exp(-k_soft_j * (y2[0] - V_th_j)))
+        w21_eff = w21_effective(y1[5])
         I1 = I_drive + w12_j * sbar2
-        I2 = I_drive + w21_j * sbar1
+        I2 = I_drive + w21_eff * sbar1
 
         y1_n, o1 = _step_cell(
             y1,
@@ -186,11 +208,12 @@ def simulate_two_cell(
         sbar1_n = sbar1 + dt_j * (-sbar1 / tau_j + s1)
         sbar2_n = sbar2 + dt_j * (-sbar2 / tau_j + s2)
         y_new = jnp.concatenate([y1_n, y2_n, jnp.stack([sbar1_n, sbar2_n])])
-        # out: V,a,Ip,Itot,s,sbar per cell
+        # out: V,a,Ip,Itot,s,sbar ×2 + w21_eff
         out = jnp.concatenate(
             [
                 jnp.concatenate([o1, jnp.stack([s1, sbar1])]),
                 jnp.concatenate([o2, jnp.stack([s2, sbar2])]),
+                jnp.stack([w21_eff]),
             ]
         )
         return y_new, out
@@ -203,14 +226,16 @@ def simulate_two_cell(
     sbar1_f, sbar2_f = y_final[12], y_final[13]
     s1_f = 1.0 / (1.0 + jnp.exp(-k_soft_j * (V1_f - V_th_j)))
     s2_f = 1.0 / (1.0 + jnp.exp(-k_soft_j * (V2_f - V_th_j)))
+    w21_eff_f = w21_effective(a1_f)
     I1_f = I_drive_t[-1] + w12_j * sbar2_f
-    I2_f = I_drive_t[-1] + w21_j * sbar1_f
+    I2_f = I_drive_t[-1] + w21_eff_f * sbar1_f
     I_p1_f = pump_current(a1_f, y_final[4], k_o, params)
     I_p2_f = pump_current(a2_f, y_final[10], k_o, params)
     last = jnp.concatenate(
         [
             jnp.stack([V1_f, a1_f, I_p1_f, I1_f, s1_f, sbar1_f]),
             jnp.stack([V2_f, a2_f, I_p2_f, I2_f, s2_f, sbar2_f]),
+            jnp.stack([w21_eff_f]),
         ]
     )[None, :]
     traj = jnp.concatenate([traj, last], axis=0)
@@ -229,11 +254,15 @@ def simulate_two_cell(
         "I_tot2": traj[:, 9],
         "s2": traj[:, 10],
         "sbar2": traj[:, 11],
+        "w21_eff": traj[:, 12],
         "w12": w12,
         "w21": w21,
         "a_max_1": a_max1_f,
         "a_max_2": a_max2_f,
         "tau_syn": tau_syn,
+        "plastic_B": plastic_B,
+        "plastic_alpha": float(plastic_alpha),
+        "plastic_a_ref": float(plastic_a_ref),
         "params": params,
         "I_drive": I_drive_t,
     }

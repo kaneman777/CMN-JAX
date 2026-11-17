@@ -1,17 +1,17 @@
 # 研究ストーリー（到達点の言語化）
 
 - **作成日:** 2026-11-16
-- **最終更新:** 2026-11-17（C′′′ asym 部分成功クローズ）
+- **最終更新:** 2026-11-17（D/E を結へ短く織り込み；Tech Report draft freeze）
 
 > これは検証済みトイ結果の物語要約である。創発・脳再現・Adam代替の証明ではない。一次データは STATUS / results。
 
-事実の表: [`results.md`](results.md)　日誌: [`STATUS.md`](../STATUS.md)　願望: [`vision.md`](vision.md)
+事実の表: [`results.md`](results.md)　日誌: [`STATUS.md`](../STATUS.md)　Tech Report: [`tech_report.md`](tech_report.md)　願望: [`vision.md`](vision.md)
 
 ---
 
 ## 0. 一文の到達点
 
-代謝・イオン制約つきの微分可能ニューロン・トイで、選択・痕跡・供給ストレスと、シナプス／Ke の二回線、および課題依存の効き方まで、対照実験つきで地図ができた。いい研究の種として再現可能なプロトタイプが一周した段階。
+代謝・イオン制約つきの微分可能ニューロン・トイで、選択・痕跡・供給ストレスと、シナプス／Ke の二回線・課題依存採点、および3細胞トポロジ／辺沿い Ke まで、対照実験つきで地図ができた。いい研究の種として再現可能なプロトタイプが一周した段階。
 
 ---
 
@@ -41,7 +41,7 @@ Phase 4-Bio では簡約 K_ATP でも同様の予兆。4-Learn では純局所�
 
 ### 転 — 2細胞で二回線
 
-地図を広げるため、2細胞へ。**電車**は速いシナプス電流（B1）。構造非対称の弱い相互抑制で発火の役割分担（ratio）が出る。対称結合からの自発的破れは未達で、成功は構造非対称に依存する。衛生スイープで弱め \(w=(-15,-3)\) を選び、肩代わりを試した。ゲート off（②）は良い null——ストレス側が減速しない。K_ATP 付き（②′）では減速は出るが相手の上昇（補償）は出ず、固定シナプスだけでは足りない地図になった。
+地図を広げるため、2細胞へ。**電車**は速いシナプス電流（B1）。構造非対称の弱い相互抑制で発火の役割分担（ratio）が出る。対称結合からの自発的破れは未達で、成功は構造非対称に依存する。衛生スイープで弱め \(w=(-15,-3)\) を選び、肩代わりを試した。ゲート off（②）は良い null——ストレス側が減速しない。K_ATP 付き（②′）では減速は出るが相手の上昇（補償）は出ず、固定シナプスだけでは足りない地図になった。案B（弱った側→相手への抑制緩和）も r1↓のみで r2↑なし——強い代謝沈黙のあとでは \(w_{21}s_1\) が既に≈0で効きどころがない（部分成功）。案A（弱者保護）は未実施。
 
 **バス**は遅い局所 \(K_e\) の2点拡散（B2）。シナプスなし・\(D>0\) で隣へ染み出し、probe 応答も増える。フル1D PDE や組織拡散の忠実再現ではない。
 
@@ -64,7 +64,9 @@ Phase 4-Bio では簡約 K_ATP でも同様の予兆。4-Learn では純局所�
 
 教訓: **両方載せられる。どれが点数に載るかは課題と時間スケール次第。** 最適ハイブリッド運用の証明ではない。
 
-**代表図:** [`figures/cprime_syn_plus_ke.png`](../figures/cprime_syn_plus_ke.png) · [`figures/cdoubleprime_co_drive.png`](../figures/cdoubleprime_co_drive.png) · [`figures/ctripleprime_short_codrive.png`](../figures/ctripleprime_short_codrive.png) · [`figures/casym_short_codrive.png`](../figures/casym_short_codrive.png)
+地図は3細胞へも延びた。同 \|w\| でも **path は LHL**（中央高・端低；構造効果）、**完全三角 \(K_3\) は均一＋同期がおおむね頑健**（微小摂動でも明確なレート分裂や交代発火は主張しない）。辺沿い \(K_e\) では path LHL が **残るが薄まる**（≈1.58→≈1.08）；バス単独は flat。三角バスや最適トポロジの一般則は言わない。
+
+**代表図:** [`figures/cprime_syn_plus_ke.png`](../figures/cprime_syn_plus_ke.png) · [`figures/cdoubleprime_co_drive.png`](../figures/cdoubleprime_co_drive.png) · [`figures/ctripleprime_short_codrive.png`](../figures/ctripleprime_short_codrive.png) · [`figures/casym_short_codrive.png`](../figures/casym_short_codrive.png) · [`figures/d1_three_cell_chain.png`](../figures/d1_three_cell_chain.png) · [`figures/d2_three_cell_triangle.png`](../figures/d2_three_cell_triangle.png) · [`figures/e1_chain_ke_diffusion.png`](../figures/e1_chain_ke_diffusion.png)
 
 ---
 
@@ -77,6 +79,7 @@ Phase 4-Bio では簡約 K_ATP でも同様の予兆。4-Learn では純局所�
 - 速い代謝ブレーキ（現象論 gNa または簡約 K_ATP）が RQ3／肩代わりの「減速」に要る；ポンプのみは null
 - 2細胞でシナプス（電車）と \(K_e\) 拡散（バス）の最小デモが揃い、同一系に共存させられる
 - 課題（cue→probe vs 同時駆動）で、採点に載る回線が変わる
+- 同 \|w\| でも path=LHL vs \(K_3\)=均一；辺 Ke で LHL は薄まるが残る（バス単独は flat）
 - 肩代わりは、ブレーキありでも固定シナプス相互抑制だけでは補償予兆不足
 - いい研究の**種**としての再現可能プロトタイプが一周した
 
@@ -88,6 +91,7 @@ Phase 4-Bio では簡約 K_ATP でも同様の予兆。4-Learn では純局所�
 - 組織拡散・電場結合・脳波・1D 連続体そのもの
 - シナプス不要、バスが常に主役、最適ハイブリッド通信
 - 対称結合からの自発的役割分担や、肩代わりの完成
+- 最適トポロジの一般則、交代発火／WTA、三角＋D の結果（未実施）
 
 ---
 
@@ -95,10 +99,14 @@ Phase 4-Bio では簡約 K_ATP でも同様の予兆。4-Learn では純局所�
 
 決め打ちしない。併記のみ。
 
-- **肩代わり:** 可塑性・タスク共有など追加部品（②′で減速までは見えた）
+- **肩代わり＋案B可塑性** — **部分成功クローズ済**（沈黙後は効きどころなし；別ノブは急がない）
 - **わずかに非対称な同時駆動** — **部分成功クローズ済**（`18_casym_short_codrive.py`；バス薄い／両方はっきりは未達）
-- **肩代わり＋可塑性**
-- **3細胞・リズム**など地図の次のマス
+- **案A（弱者保護）** — 未実施（別現象）
+- **3細胞トポロジ本編（D1 path / D2 K3 / D2b）** — **Ask クローズ済**（同 |w| でも path=LHL vs K3=均一・同期頑健）
+- **Phase E1/E1b（path + 辺 Ke）** — **Ask クローズ済**（LHL 薄い残存；bus_only flat）
+- **4細胞スター等** — 本編外メモ（必須にしない）
+- **短い Tech Report** — [`tech_report.md`](tech_report.md) **draft freeze**（2026-11-17）
+- **リズム**など地図の次のマス
 - 願望カタログは別棚: [`vision.md`](vision.md)
 
 ---
@@ -138,5 +146,8 @@ Phase 4-Bio では簡約 K_ATP でも同様の予兆。4-Learn では純局所�
 | [`figures/cdoubleprime_co_drive.png`](../figures/cdoubleprime_co_drive.png) | C′′ 電車が載る（Ke clip） |
 | [`figures/ctripleprime_short_codrive.png`](../figures/ctripleprime_short_codrive.png) | C′′′ 短駆動・電車のみ |
 | [`figures/casym_short_codrive.png`](../figures/casym_short_codrive.png) | C′′′ asym 部分成功（電車＋薄いバス） |
+| [`figures/d1_three_cell_chain.png`](../figures/d1_three_cell_chain.png) | D1 path LHL |
+| [`figures/d2_three_cell_triangle.png`](../figures/d2_three_cell_triangle.png) | D2 K3 均一 |
+| [`figures/e1_chain_ke_diffusion.png`](../figures/e1_chain_ke_diffusion.png) | E1 path+辺 Ke（LHL 薄い） |
 
-数値・表の根拠はすべて [`results.md`](results.md) と [`STATUS.md`](../STATUS.md) を参照。
+数値・表の根拠はすべて [`results.md`](results.md) と [`STATUS.md`](../STATUS.md) を参照。短報: [`tech_report.md`](tech_report.md)。

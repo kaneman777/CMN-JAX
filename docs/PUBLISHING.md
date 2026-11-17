@@ -106,7 +106,7 @@ Official docs:
 
 ## 4. Next phase (optional, not required for timestamp)
 
-1. Short **Tech Report** (2–6 pages) summarizing story + key tables from results.
+1. Short **Tech Report** — **draft freeze:** [`tech_report.md`](tech_report.md) (2026-11-17). Optional later: LaTeX / arXiv polish without raising claim ceilings.
 2. Optional preprint: arXiv / TechRxiv (check license + institutional requirements).
 3. Keep vision.md out of the abstract’s claims.
 

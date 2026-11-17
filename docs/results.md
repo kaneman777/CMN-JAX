@@ -1,10 +1,10 @@
 # Results Summary（検証済み到達点）
 
 - **作成日:** 2026-11-15
-- **最終更新:** 2026-11-17（C′′′ asym Ask 部分成功クローズ）
+- **最終更新:** 2026-11-17（Phase E1/E1b Ask クローズ）
 
 > **予兆レベルのトイ結果。創発・脳再現・Adam代替の証明ではない。**  
-> **物語版:** [`story.md`](story.md)　願望カタログは [`vision.md`](vision.md)。実験日誌の一次ソースは [`STATUS.md`](../STATUS.md)。
+> **物語版:** [`story.md`](story.md)　**Tech Report (draft freeze):** [`tech_report.md`](tech_report.md)　願望カタログは [`vision.md`](vision.md)。実験日誌の一次ソースは [`STATUS.md`](../STATUS.md)。
 
 ---
 
@@ -40,6 +40,14 @@
 | C′′ | 同時駆動で再採点 | `16_cdoubleprime_co_drive.py` · [`figures/cdoubleprime_co_drive.png`](../figures/cdoubleprime_co_drive.png) | **部分成功:** syn≠neither・both≈syn | 長駆動で Ke クリップしバス弱；C′と対で課題依存 |
 | C′′′ | 短駆動同時採点 | `17_ctripleprime_short_codrive.py` · [`figures/ctripleprime_short_codrive.png`](../figures/ctripleprime_short_codrive.png) | **電車のみ:** syn ratio→1.13・Ke未clip | 対称駆動では diff≈neither（Dに勾配なし） |
 | C′′′ asym | 非対称短同時 | `18_casym_short_codrive.py` · [`figures/casym_short_codrive.png`](../figures/casym_short_codrive.png) | **部分成功:** eps=0 bus null 回帰；eps=0.20 未clip・train+bus（bus_ke ぎりぎり・both≈syn） | フル二回線同時採点ではない；最適ハイブリッド等は主張しない |
+| B1 Plan-B | 肩代わり＋最小可塑性（案B） | `19_b1_compensation_plastic_B.py` · [`figures/b1_compensation_plastic_B.png`](../figures/b1_compensation_plastic_B.png) | **部分成功:** r1↓ ✅ / r2↑ ❌；P1≈P2 | **沈黙後は案Bに効きどころなし**（\(I_{\mathrm{syn},2}\propto w_{21}s_1\approx0\)）；案Aは未実施 |
+| D1 | 3細胞 path・D=0 | `20_d1_three_cell_chain.py` · [`figures/d1_three_cell_chain.png`](../figures/d1_three_cell_chain.png) | **成功:** LHL r≈(0.018,0.029,0.018) ratio=1.58 | 構造効果（自発破れではない）；3細胞本編 |
+| D1 \|w\| | path 衛生スイープ | `21_d1_chain_w_sweep.py` · [`figures/d1_chain_w_sweep.png`](../figures/d1_chain_w_sweep.png) | 明確 LHL は g≈6–8；強すぎで flat→HLH | 推奨 g=8；3細胞本編 |
+| D2 | 3細胞 K3 g=8 | `22_d2_three_cell_triangle.py` · [`figures/d2_three_cell_triangle.png`](../figures/d2_three_cell_triangle.png) | **均一** ratio=1；同期 | **path LHL vs K3 均一**；3細胞本編クローズ |
+| D2b | K3 微小非対称 | `23_d2b_triangle_asymmetry.py` · [`figures/d2b_triangle_asymmetry.png`](../figures/d2b_triangle_asymmetry.png) | 同期おおむね頑健；レート差ほぼなし | 3細胞本編；WTA/交代は言わない |
+| D3（本編外） | 4細胞スター Y g=8 | `24_d3_four_cell_y.py` · [`figures/d3_four_cell_y.png`](../figures/d3_four_cell_y.png) | **flat**；次数だけでは LHL 級にならない | 興味深い対照だが3細胞章の必須外 |
+| E1 | path + 辺沿い Ke | `25_e1_chain_ke_diffusion.py` · [`figures/e1_chain_ke_diffusion.png`](../figures/e1_chain_ke_diffusion.png) | D=0→LHL 1.58；syn+D\*→LHL≈1.08；bus_only 長駆動は clip・flat | Ask クローズ；三角バスなし |
+| E1b | 短駆動 Ke 衛生 | `26_e1b_chain_ke_short.py` · [`figures/e1b_chain_ke_short.png`](../figures/e1b_chain_ke_short.png) | width=200 ms：bus_only **未clip・flat**；短窓でも syn D=0=1.58 / syn+D≈1.08 | E1 結論を覆さない；Ask クローズ |
 
 **B1 Ask（2026-11-16）:** ①成功。結合オンで非対称＋高発火側 Δa 大；オフは対称。成功は構造非対称抑制依存（対称結合からの自発破れは未達）。詳細は STATUS「Ask 検証 — Phase B1 クローズ」。
 
@@ -128,3 +136,12 @@
 | [`figures/cprime_syn_plus_ke.png`](../figures/cprime_syn_plus_ke.png) | C′ |
 | [`figures/cdoubleprime_co_drive.png`](../figures/cdoubleprime_co_drive.png) | C′′ |
 | [`figures/ctripleprime_short_codrive.png`](../figures/ctripleprime_short_codrive.png) | C′′′ |
+| [`figures/casym_short_codrive.png`](../figures/casym_short_codrive.png) | C′′′ asym |
+| [`figures/b1_compensation_plastic_B.png`](../figures/b1_compensation_plastic_B.png) | B1 Plan-B |
+| [`figures/d1_three_cell_chain.png`](../figures/d1_three_cell_chain.png) | D1 3-cell chain |
+
+---
+
+## 将来メモ（未実施）
+
+- **回路アナログ／SPICE／神経形態パス:** 願望のみ。[`vision.md`](vision.md) §5。JAX 結果の延長主張ではない。
